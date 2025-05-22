@@ -1,0 +1,46 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String
+  createdAt DateTime @default(now())
+  clients   Client[]
+}
+
+model Client {
+  id        String               @id @default(uuid())
+  name      String
+  category  String
+  notes     String? // optional onboarding notes
+  createdAt DateTime             @default(now())
+  accounts  SocialMediaAccount[]
+  User      User?                @relation(fields: [userId], references: [id])
+  userId    String?
+}
+
+model SocialMediaAccount {
+  id           String    @id @default(uuid())
+  platform     String
+  handle       String
+  accessToken  String
+  refreshToken String?
+  expiresAt    DateTime?
+  pageId       String
+  pageName     String
+  clientId     String
+  client       Client    @relation(fields: [clientId], references: [id])
+  createdAt    DateTime  @default(now())
+  permissions  String
+  isConnected  Boolean   @default(true)
+
+  @@unique([platform, pageId]) // ✅ Instead of just `pageId`, make both unique together
+}
