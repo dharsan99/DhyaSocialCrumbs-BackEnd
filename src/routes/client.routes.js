@@ -3,20 +3,17 @@ const router = express.Router();
 const {
   createClient,
   listClients,
+  updateClient,
   startOnboarding,
   updateClientSetting,
+  createFullClient, // ✅ New
 } = require("../controllers/client.controller");
 
-// POST /clients
 router.post("/", createClient);
-
-// GET /clients
+router.post("/full", createFullClient); // ✅ New route
 router.get("/", listClients);
-
-// PATCH /clients/:id/settings
+router.put("/:id", updateClient);
 router.patch("/:id/settings", updateClientSetting);
-
-// POST /clients/:id/start-onboarding
 router.post("/:id/start-onboarding", startOnboarding);
 
 module.exports = router;

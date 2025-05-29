@@ -1,19 +1,11 @@
 const express = require("express");
-const { connectFacebook, facebookCallback, listAccounts,   deleteAccount } = require("../controllers/social.controller");
+const {
+  listAccounts,
+  deleteAccount,
+  fetchPublicInfo, // ✅ New controller
+} = require("../controllers/social.controller");
 
 const router = express.Router();
-
-/**
- * @route GET /api/social/connect/facebook
- * @desc Initiates Facebook login flow
- */
-router.get("/connect/facebook", connectFacebook);
-
-/**
- * @route GET /api/social/callback/facebook
- * @desc Handles Facebook OAuth redirect
- */
-router.get("/callback/facebook", facebookCallback);
 
 /**
  * @route GET /api/social/accounts
@@ -21,7 +13,16 @@ router.get("/callback/facebook", facebookCallback);
  */
 router.get("/accounts", listAccounts);
 
-router.delete("/accounts/:id", deleteAccount); // ✅ DELETE route
+/**
+ * @route DELETE /api/social/accounts/:id
+ * @desc Deletes a connected social account
+ */
+router.delete("/accounts/:id", deleteAccount);
 
+/**
+ * @route GET /api/social/fetchPublicInfo?platform=instagram&handle=cristiano
+ * @desc Fetches public profile info using RapidAPI
+ */
+router.get("/fetchPublicInfo", fetchPublicInfo); // ✅ NEW
 
 module.exports = router;
