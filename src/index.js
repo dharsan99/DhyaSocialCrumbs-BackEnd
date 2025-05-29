@@ -17,7 +17,10 @@ const PORT = process.env.PORT || 5001;
 // ✅ CORS with credentials
 app.use(
   cors({
-    origin: "http://localhost:5173", // ✅ Explicitly allow your frontend origin
+    origin: [
+      "http://localhost:5173",                      // dev
+      "https://dhya-social-crumbs-frontend.vercel.app" // prod
+    ], // ✅ Explicitly allow your frontend origin
     credentials: true,
   })
 );
