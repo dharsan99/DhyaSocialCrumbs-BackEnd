@@ -18,8 +18,9 @@ const PORT = process.env.PORT || 5001;
 app.use(
   cors({
     origin: [
-      "http://localhost:5173",                      // dev
-      "https://dhya-social-crumbs-frontend.vercel.app" // prod
+      "http://localhost:5173", // frontend dev
+  "http://localhost:5001", // Swagger UI
+  "https://dhya-social-crumbs-frontend.vercel.app", // prod
     ], // ✅ Explicitly allow your frontend origin
     credentials: true,
   })

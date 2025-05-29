@@ -14,6 +14,10 @@ const options = {
         url: "http://localhost:5001/api",
         description: "Development server",
       },
+      {
+  url: "https://dhyasocialcrumbs-backend-qhna.onrender.com/api",
+  description: "Production server",
+},
     ],
   },
   apis: ["./src/routes/*.js", "./src/controllers/*.js"],
